@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+<!--    扫描包-->
+    <context:component-scan base-package="com.tengfei">
+<!--        exclude-filter是不扫描谁，我们期望Controller由springmvc去扫；类型是注解；表达式是谁去干这个活-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+<!--    mybatis和spring整合-->
+
+<!--    导入properties-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+<!--    配置数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+<!--    配置sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!--        sqlSessionFactory需要的一个属性是数据源，一个是mybatis核心配置文件-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+<!--    配置映射在哪个路径下-->
+<!--    这个配置的是接口在哪个包下-->
+    <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.tengfei.dao"/>
+    </bean>
+</beans>

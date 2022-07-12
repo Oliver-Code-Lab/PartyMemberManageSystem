@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+<!--        可以直接写包名，表示这个包下的所有类都起个别名-->
+        <package name="com.tengfei.domain"/>
+    </typeAliases>
+
+<!--    这个地方和老师不一样，老师在applicationContext中配一次就行了，但我的没成功，我要在这里配置和接口对应的配置文件在哪；而且我配置包也不行-->
+<!--    <mappers>-->
+<!--        <mapper resource="mapper/accountMapper.xml"/>-->
+<!--    </mappers>-->
+</configuration>
